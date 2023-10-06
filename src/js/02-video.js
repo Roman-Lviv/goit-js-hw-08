@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const savedTime = localStorage.getItem('videoplayer-current-time');
+
+  if (savedTime) {
+    vimeoPlayer.setCurrentTime(savedTime);
+  }
+});
+
 import throttle from 'lodash.throttle';
 
 vimeoPlayer.on(
