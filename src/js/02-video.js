@@ -1,3 +1,9 @@
+import Player from '@vimeo/player';
+
+const vimeoPlayer = new Player(document.getElementById('vimeo-player'), {
+  /* налаштування плеєра */
+});
+
 vimeoPlayer.on('timeupdate', data => {
   const currentTime = data.seconds; // Поточний час відтворення у секундах
 
