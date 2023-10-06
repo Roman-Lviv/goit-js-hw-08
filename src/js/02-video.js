@@ -1,3 +1,10 @@
+vimeoPlayer.on('timeupdate', data => {
+  const currentTime = data.seconds; // Поточний час відтворення у секундах
+
+  // Збереження поточного часу відтворення в локальне сховище
+  localStorage.setItem('videoplayer-current-time', currentTime);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const savedTime = localStorage.getItem('videoplayer-current-time');
 
