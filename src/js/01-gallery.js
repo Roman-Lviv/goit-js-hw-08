@@ -1,45 +1,34 @@
 import { galleryItems } from './gallery-items';
-
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryContainer = document.querySelector('.gallery');
 
 function createGalleryItem(item) {
-  const galleryItem = document.createElement('li');
-  galleryItem.classList.add('gallery__item');
-
-  const galleryLink = document.createElement('a');
-  galleryLink.classList.add('gallery__link');
-  galleryLink.href = item.original;
-
-  const galleryImage = document.createElement('img');
-  galleryImage.classList.add('gallery__image');
-  galleryImage.src = item.preview;
-  galleryImage.setAttribute('data-source', item.original);
-  galleryImage.alt = item.description;
-
-  galleryLink.appendChild(galleryImage);
-  galleryItem.appendChild(galleryLink);
-
-  return galleryItem;
+  return `
+    <li class="gallery__item">
+      <a class="gallery__link" href="${item.original}">
+        <img class="gallery__image" src="${item.preview}" data-source="${item.original}" alt="${item.description}" />
+      </a>
+    </li>
+  `;
 }
 
-const galleryMarkup = galleryItems.map(createGalleryItem);
-galleryContainer.append(...galleryMarkup);
+const galleryMarkup = galleryItems.map(createGalleryItem).join('');
+galleryContainer.innerHTML = galleryMarkup;
 
-galleryContainer.addEventListener('click', event => {
-  event.preventDefault();
-
-  if (event.target.nodeName === 'IMG') {
-    const largeImageUrl = event.target.dataset.source;
-
-    const instance = new SimpleLightbox(`
-            <img src="${largeImageUrl}" width="800" height="600">
-        `);
-
-    instance.show();
-  }
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+  closeText: 'Закрити',
+  errorText: 'Зображення не може бути завантажено. Перевірте посилання.',
 });
 
-console.log(galleryItems);
+const galleryImages = document.querySelectorAll('.gallery__image');
+galleryImages.forEach(image => {
+  image.addEventListener('click', event => {
+    event.preventDefault();
+    lightbox.open();
+  });
+});
