@@ -21,14 +21,4 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionPosition: 'bottom',
   captionDelay: 250,
-  closeText: 'Закрити',
-  errorText: 'Зображення не може бути завантажено. Перевірте посилання.',
-});
-
-const galleryImages = document.querySelectorAll('.gallery__image');
-galleryImages.forEach(image => {
-  image.addEventListener('click', event => {
-    event.preventDefault();
-    lightbox.open();
-  });
 });
