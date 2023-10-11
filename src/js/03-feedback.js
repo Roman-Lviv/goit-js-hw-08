@@ -16,7 +16,9 @@ const restoreFormState = () => {
     if (!savedData) return;
     formData = JSON.parse(savedData);
     Object.entries(formData).forEach(([key, val]) => {
-      form.elements[key].value = val;
+      if (form.elements[key]) {
+        form.elements[key].value = val;
+      }
     });
   } catch (error) {
     console.error(error.message);
