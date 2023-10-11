@@ -12,14 +12,14 @@ const saveFormState = e => {
 
 const restoreFormState = () => {
   try {
-    const saveData = localStorage.getItem(KEY_LOCAL_STORAGE);
+    const savedData = localStorage.getItem(KEY_LOCAL_STORAGE);
     if (!savedData) return;
-    formData = JSON.parse(saveData);
+    formData = JSON.parse(savedData);
     Object.entries(formData).forEach(([key, val]) => {
       form.elements[key].value = val;
     });
-  } catch ({ massage }) {
-    console.log(message);
+  } catch (error) {
+    console.error(error.message);
   }
 };
 
